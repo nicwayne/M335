@@ -1,0 +1,166 @@
+---
+title: "Exploratory Data Analysis"
+author: Nicolaas Gartside
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  html_document:  
+    keep_md: true
+    toc: true
+    toc_float: true
+    fig_height: 6
+    fig_width: 12
+    fig_align: 'center'
+---
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+```
+
+## Reading Notes
+EDA - Exploratory Data Analysis
+EDA is a cycle:
+1. Generate questions about your data
+2. Search for answers by visualising, transforming, and modelling your data
+3. Use what you learn to refine your questions and/or generate new questions
+
+In the first step, the world is your oyster per se. Play and search through the data to get to know the ins and outs of it.
+
+When asking questions, don't search for the important one. Just ask as many questions as you can think of first and go delve into them. As you answer them, new questions will appear
+
+1. What type of variation occurs within my variables?
+2. What type of covariation occurs between my variables?
+
+Tabular Data: A set of values associated with a variable and an observation. This is tidy when each value is placed in its own cell
+
+Count values dplyr::count()
+
+binwidth sets the size of each bin in a geom_histogram
+
+ggplot2::cut_width() includes a way to calculate by hand
+
+freqpoly is a histogram that displays lines instead of bars which is convenient when wanting to add a layer of comparison through throwing in a colour=(data$table)
+
+Throw a coord_cartesian(ylim=c(0,50)) to set the y-min and max to focus in on outliers. (there is also a xlim)
+
+Don't remove data until you are sure that the effect is none to what you are trying to do.
+
+Practice with and without outliers.
+
+Use filter to remove what is unwanted
+
+
+Use mutate to replace a variable (row/column) with a modified copy. Use ifelse() to replace unusual values with NA
+
+Ex: mutate(y = ifelse(y < 3 | y > 20, NA, y))
+An alternative to ifelse() is case_when() in dplyr package
+
+ggplot naturally removes this, so use na.rm = TRUE to fix this.
+i.e. 
+  ggplot(data = diamonds2,     mapping = aes(x = x, y = y)) + 
+  geom_point(na.rm = TRUE)
+  
+You can use is.na() to to only focus on the values that are NA
+
+Display density to better compare continuous data to catagorical and use a freqpoly
+
+If you're trying compare between groups and don't care about distribution, a whisker pot would be better. (boxplot)
+
+reorder through a median
+ex: 
+ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(x = reorder(class, hwy, FUN = median), y = hwy))
+TO transpose, do +coord_flip() at the end of the boxplot
+
+You can use a geom_count with a x= and y= to count the amount of data that falls in each group combination. (2 cat)
+
+A cool way to compare two categorical is geom_tile
+
+ex: 
+diamonds %>% 
+  count(color, cut) %>%  
+  ggplot(mapping = aes(x = color, y = cut)) +
+    geom_tile(mapping = aes(fill = n))
+
+For 2 continuous, use a point plot. Throw in a alpha=1/100 to help see anything with large amounts of data
+
+You can also do geom_bin2d or through the package hexbin, do geom_hex
+
+You can also bin one of them
+
+You can make models through library(modelr). 
+
+You can convert a pipe into a graph without storing the pipe through throwing a + graph at the end.
+Ex: 
+diamonds %>% 
+  count(cut, clarity) %>% 
+  ggplot(aes(clarity, cut, fill = n)) + 
+    geom_tile()
+
+Go to https://r4ds.had.co.nz/exploratory-data-analysis.html for better understanding of these notes.
+
+## EDA Example
+
+The code below is an example of the EDA process using the `starwars` data from the `tidyverse` package. (Make sure you have the `tidyverse` package installed!)
+
+Run the code line-by-line and look at the output. Add a comment to each line of code that explains what it does/what insights it provides.
+
+```{r}
+library(tidyverse)
+
+dim(starwars)
+colnames(starwars)
+
+head(starwars)
+glimpse(starwars)
+
+?starwars
+
+starwars %>% count(species)
+
+mean(starwars$height)
+mean(starwars$height, na.rm = TRUE)
+
+summary(starwars$height)
+
+cm_to_ft <- function(cm){
+  ft = cm / 30.48
+  return(ft)
+}
+
+starwars_2 <- starwars %>% mutate(height_ft = cm_to_ft(height)) 
+
+dim(starwars_2)
+colnames(starwars_2)
+
+summary(starwars_2$height_ft)
+
+ggplot(starwars_2, aes(height_ft)) + 
+  geom_histogram()
+
+starwars_2 %>% filter(height_ft == max(height_ft))
+starwars_2 %>% filter(height_ft == max(height_ft, na.rm = TRUE))
+
+# https://starwars.fandom.com/wiki/Yarael_Poof
+```
+
+## EDA Practice
+
+Continue exploring the `starwars` data to gain additional insights, using [R4DS: Chapter 7](https://r4ds.had.co.nz/exploratory-data-analysis.html) as a guide.
+
+It is ok if you don't understand all the code in Chapter 7. (That is what we'll be learning the next two weeks!) If writing your own code is a struggle, try the "copy, paste, and tweak" method.
+
+```{r}
+# your code goes here
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+glimpse(starwars)
+starwars %>% count(name, height)
+starwars %>% count(height, name)
+starwars %>% count(height)
+
+ggplot(data=starwars) +
+  geom_bar(mapping=aes(x=homeworld)) +
+  coord_flip()
+starwars %>% filter(starwars$name=="Ackbar") %>% count(height, name)
+```
