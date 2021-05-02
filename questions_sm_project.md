@@ -1,0 +1,64 @@
+Case Study 2
+============
+
+Questions on what I would like to study:
+
+1.  Is there an association between reading books and memory retention?
+2.  Are more books being bought due to COVID, if so then what genre?
+3.  Does age affect driving safety?
+
+Question 1
+----------
+
+Interest: - My interest for this is because I am an avid fantasy book
+reader. If there is free time, then you would find me reading a book.
+The formation of this question occurred due to the fact that I am
+extremely forgetful. So, my curiousity made me wonder if there is some
+correlation between the two.
+
+Feedback: Has someone thought of testing this? It is very interesting. I
+guess you could do it in the course of the semester as long as you don’t
+have to collect the data.
+
+Examples online:
+<a href="https://www.scientificamerican.com/article/reading-paper-screens/" class="uri">https://www.scientificamerican.com/article/reading-paper-screens/</a>
+<a href="https://www.fastcompany.com/40476984/this-is-how-the-way-you-read-impacts-your-memory-and-productivity" class="uri">https://www.fastcompany.com/40476984/this-is-how-the-way-you-read-impacts-your-memory-and-productivity</a>
+
+Preliminary Search: I’m having trouble finding sources to actual data.
+There are plenty of articles, so this is the closest that I can get to.
+<a href="https://arxiv.org/abs/1511.02301" class="uri">https://arxiv.org/abs/1511.02301</a>
+
+Question 2
+----------
+
+Interest: The reasoning for this question is through a curiosity for how
+being in quarantine has influenced the people to try picking up a book
+for the first time in forever.
+
+Feedback: Is there enough data collected to answer the question
+concerning COVID? It’s interesting. Has data Been published yet?
+
+Examples online:
+<a href="https://abc7news.com/books-reading-book-sales-coronavirus/8640527/#" class="uri">https://abc7news.com/books-reading-book-sales-coronavirus/8640527/#</a>:~:text=Sandy%20Kenyon%20reports%20the%20book,than%206%25%20compared%20to%202019.
+<a href="https://theconversation.com/how-reading-habits-have-changed-during-the-covid-19-lockdown-146894" class="uri">https://theconversation.com/how-reading-habits-have-changed-during-the-covid-19-lockdown-146894</a>
+
+Preliminary Search: I’m having trouble finding sources to actual data.
+There are plenty of articles, so this is the closest that I can get to.
+<a href="https://search.proquest.com/docview/2447004794?pq-origsite=gscholar&amp;fromopenview=true" class="uri">https://search.proquest.com/docview/2447004794?pq-origsite=gscholar&amp;fromopenview=true</a>
+
+Question 3
+----------
+
+Interest: In my current situation, I do a lot of driving going to and
+from work. I know a lot of the time, experience can help influence the
+safety of a driver. I wonder if this really does hold true or if people
+get comfortable after a certain amount of time after their last crash.
+
+Feedback: It’s interesting. The data should be easy enough to find. This
+could be accomplished in a semester.
+
+Examples online:
+<a href="https://www.cdc.gov/transportationsafety/older_adult_drivers/index.html#" class="uri">https://www.cdc.gov/transportationsafety/older_adult_drivers/index.html#</a>:~:text=Driving%20helps%20older%20adults%20stay,stay%20safer%20on%20the%20roads.
+
+Preliminary Search:
+<a href="https://www.kaggle.com/benoit72/uk-accidents-10-years-history-with-many-variables" class="uri">https://www.kaggle.com/benoit72/uk-accidents-10-years-history-with-many-variables</a>
