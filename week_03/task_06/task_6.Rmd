@@ -1,0 +1,91 @@
+---
+title: "task_6"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readr)
+library(ggplot2)
+library(dplyr)
+```
+
+## Task 6
+```{r}
+rcw <- read_csv("https://byuistats.github.io/M335/data/rcw.csv", 
+                col_types = cols(Semester_Date = col_date(format = "%m/%d/%y"), 
+                                 Semester = col_factor(levels = c("Winter", "Spring", "Fall"))))
+
+rcw %>% glimpse()
+
+ggplot(data = rcw, 
+       mapping = aes(x = Semester_Date, 
+                     y = Count, 
+                     color = Department)) +
+  geom_line() +
+  geom_point()
+
+```
+
+```{r}
+# reorder helped show the dates and the positioning of all the bars in the bar graph a lot better
+rercw <- reorder(rcw$Semester_Date, -rcw$Count)
+# The graph itself with a different color scheme
+rcw %>% 
+  ggplot(order=Department) +
+  geom_col(mapping=aes(x=rercw, y=Count, fill=Department)) +
+  scale_fill_manual(values=palette('Set1')) +
+  theme_bw() +
+  labs(x="Semester_Date")
+```
+
+With this bar graph, it's hard to keep track of anything other than total attendance as you can't really follow from semester to semester focusing on a department. It does seem like attendance for ME decreased halfway through and then started increasing again. For some reason, 2017-04-01 and 2017-09-01 has the smallest total attendance.
+
+
+```{r}
+# reorder helped show the dates and the positioning of all the bars in the bar graph a lot better
+rercw <- reorder(rcw$Semester_Date, rcw$Semester_Date)
+# The bar graph with a different color scheme as well as positioning of departments being side-by-side
+rcw %>% 
+  ggplot(order=Department) +
+  geom_col(mapping=aes(x=rercw, y=Count, fill=Department), position="dodge") +
+  scale_fill_manual(values=palette('Set1')) +
+  theme_bw() +
+  labs(x="Semester_Date")
+```
+
+This graph is a lot easier to focus on a singular department as time progresses. Everyone seems to have suffered some form of decline in 2017-04-01 and 2017-09-01 except for DCM experienced an increase in attendance on 2017-04-01.
+
+
+```{r}
+# original graph with bw theme
+rcw %>% 
+  ggplot(mapping = aes(x = Semester_Date, 
+                     y = Count, 
+                     color = Department)) +
+  geom_line() +
+  geom_point() +
+  theme_bw()
+```
+
+This graph is hard to see anything except for a comparison of who has the highest attendance at any given time which seems to be ME.
+
+```{r}
+# faceted the graphs
+rcw %>% 
+  ggplot(mapping = aes(x = Semester_Date, 
+                     y = Count, 
+                     color = Department)) +
+  geom_line() +
+  geom_point() +
+  theme_bw() +
+  facet_grid(Department ~ .)
+```
+
+This graph lets us see each department separately to compare attendance of each one over time. chem seems to be the only department that attendance increases in-between every semester except for at one point which has a dip. 
+
+
+
+
+
