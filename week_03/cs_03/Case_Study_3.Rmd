@@ -1,0 +1,57 @@
+---
+title: "Case_Study_3"
+output: md_document
+---
+
+```{r setup, include=FALSE}
+#install.packages("gapminder")
+library(gapminder)
+library(tidyverse)
+```
+
+## R Markdown
+
+```{r}
+gapminder %>% 
+  ggplot() +
+  geom_bar(mapping=aes(x=continent)) +
+  theme_bw()
+```
+
+```{r}
+gapminder %>% 
+  ggplot() +
+  geom_boxplot(mapping=aes(x=lifeExp), color="blue") +
+  theme_bw()
+```
+
+This chart shows the five-number summary of life expectancy overall. We see that the median is a little past 60
+
+
+
+```{r}
+gapminder %>% glimpse()
+gp <- aggregate(. ~ gapminder$continent, gapminder[4], mean)
+gp['continent']=gp$`gapminder$continent`
+gp %>% 
+  ggplot() +
+  geom_col(mapping=aes(x=continent, y=lifeExp)) +
+  theme_bw() +
+  theme (
+    axis.text.x = element_text(angle=60, hjust=1)
+  )
+
+```
+
+This shows the average life expectancy of each continent. Africa has the lowest average life expectancy whereas Oceania has the highest average life expectance
+
+```{r}
+gp <- gapminder %>% filter(!(country %in% 'Kuwait'))
+gp_save <- gp %>% 
+  ggplot() +
+  geom_bar(mapping=aes(x=continent)) +
+  theme_bw() +
+  scale_y_continuous(trans="sqrt")
+ggsave('graph.png', plot=gp_save, width=15)
+```
+
