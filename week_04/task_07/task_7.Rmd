@@ -1,0 +1,70 @@
+---
+title: "task_7"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+remotes::install_github("apreshill/bakeoff")
+library(bakeoff)
+library(tidyverse)
+```
+
+## R Markdown
+
+```{r}
+only_first_last <- ratings %>% 
+  group_by(series) %>% 
+  slice(1,n()) %>% 
+  mutate(which_episode = ifelse(episode==1, "First", "Last")) %>% 
+  ungroup() %>% 
+  mutate(series_f = as.factor(series))
+
+only_first_last %>% glimpse()
+
+
+only_first_last %>% 
+  ggplot(mapping=aes(x=which_episode,
+                     y=viewers_7day,
+                     group=series_f,
+                     color=series_f)) +
+  geom_line() +
+  geom_point(size=5)
+```
+
+
+```{r}
+d<-ratings %>% 
+  group_by(series) %>% 
+  slice_tail(n=1) %>% 
+  filter(episode %in% 10)
+epi_10_season <- ratings %>% 
+  group_by(series) %>% 
+  filter(series %in% d$series)
+
+mean_epi<-aggregate(. ~ epi_10_season$episode, epi_10_season[4], mean) %>% 
+  rename(
+    episode=`epi_10_season$episode`
+  )
+epi_10_season <- epi_10_season %>% inner_join(mean_epi, by="episode")
+epi_10_season %>% 
+  ggplot() +
+  geom_line(mapping=aes(x=episode, y=viewers_7day.x, group=series, color=series)) +
+  geom_point(mapping=aes(x=episode, y=viewers_7day.x, group=series, color=series), size=3)
+```
+
+
+
+
+```{r}
+par(mfrow=c(2,1))
+epi_10_season %>% 
+  ggplot() +
+  geom_line(mapping=aes(x=episode, y=viewers_7day.x, group=series, color=series)) +
+  geom_point(mapping=aes(x=episode, y=viewers_7day.x, group=series, color=series), size=3)
+epi_10_season %>% 
+  ggplot() +
+  geom_col(mapping=aes(x=episode, y=epi_10_season$viewers_7day.y))
+```
+
+
