@@ -1,3 +1,14 @@
+Notes: You can use filter to filter the rows. Like Where in SQL.
+Comparitors are &lt;, &gt;, ==, and %in% And is & Or is | not is !
+
+Use is.na(x) to test if a value is not present You can rename column
+names with the rename function select is a query You can create new
+columns through mutate and multiple at a time separated by a comma
+logarithms are used through log(), log2(), log10() lead and lag can be
+used to sselect a range specified ie 3:10 with an index from either
+start or finish min\_rank() can be used for ranking values in order
+summarise(mean = mean(dep\_delay, na.rm = TRUE))
+
 R Markdown
 ----------
 
